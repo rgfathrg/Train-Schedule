@@ -45,7 +45,14 @@ $(document).ready(function () {
         $("#formFreq").val("");
 
     });
-
+    
+    snapShot();
+    function start() {
+        if (moment().second() === 0) {
+            snapShot();
+        }
+    }
+    setInterval(start, 1000);
 
     function snapShot() {
         $("#tbody").empty();
@@ -66,16 +73,13 @@ $(document).ready(function () {
             var tArrival;
             var nextArrival;
 
-
-
-            
             if (maxMoment === trainTime) {
                 tArrival = tFirstTrain;
                 //Need to figure out to how to display correct minutes till train arrives according to tFirstTrain
             }
             else {
                 nextArrival = moment().add(tMinutes, "minutes");
-                tArrival = moment(nextArrival).format("hh:mm");
+                tArrival = moment(nextArrival).format("hh:mm a");
             }
 
             var newRow = $("<tr>").append(
@@ -88,11 +92,7 @@ $(document).ready(function () {
             );
             $("#tbody").append(newRow);
         });
-
     }
-    snapShot();
-    setInterval(snapShot, 60000);
-
 });
 
 
